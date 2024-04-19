@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.modelmono.appwholesale.entities.Category;
 import com.modelmono.appwholesale.entities.Order;
+import com.modelmono.appwholesale.entities.Product;
 import com.modelmono.appwholesale.entities.User;
 import com.modelmono.appwholesale.entities.enums.OrderStatus;
 import com.modelmono.appwholesale.repositories.CategoryRepository;
 import com.modelmono.appwholesale.repositories.OrderRepository;
+import com.modelmono.appwholesale.repositories.ProductRepository;
 import com.modelmono.appwholesale.repositories.UserRepository;
 
 @Configuration
@@ -28,6 +30,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private ProductRepository productRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -36,7 +41,15 @@ public class TestConfig implements CommandLineRunner {
 		Category cat2 = new Category(null, "Drinks");
 		Category cat3 = new Category(null, "Hygiene and Beauty");
 		
+		Product p1 = new Product(null,"Kero Coconut","Fruit or vegetable, juice mix", 3.79, "");
+		Product p2 = new Product(null, "Toddy prisma 200", "Ready-made lacteal chocolate drink", 4.89, "");
+		Product p3 = new Product(null, "Instant noodles, meat flavored-Predilecta ", "Instant pasta based on flours,cereals and starches", 1.99, "");
+		Product p4 = new Product(null, "Nivea men Silver Protect", "Antitranspirante Aerossol Antibacteriano 150ml", 10.47, "");
+		Product p5 = new Product(null, "Creme Dental menta original Colgate Tripla Açao 180g", "Preparo para higiene bucal", 4.98, "");
+		
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+		
 		
 		User u1 = new User(null, "Maria Brown", "mariaB@gmail.com", "11991234500", "@der3456");
 		User u2 = new User(null, "Johnny Bravo", "johnnyB@gmail.com", "13994251942", "123456q");
