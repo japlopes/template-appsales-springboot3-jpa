@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.modelmono.appwholesale.entities.enums.PaymentStatus;
 
 import jakarta.persistence.Entity;
@@ -29,6 +30,7 @@ public class Payment implements Serializable {
 	
 	private Integer paymentStatus;
 	
+	@JsonIgnore
 	@OneToOne
 	@MapsId
 	private Order order;
