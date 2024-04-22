@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.modelmono.appwholesale.entities.User;
 import com.modelmono.appwholesale.repositories.UserRepository;
+import com.modelmono.appwholesale.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -21,8 +22,12 @@ public class UserService {
 	
 	public User findById(Long idUser) {
 		Optional<User> obj = userRepository.findById(idUser);
-		return obj.get();
+		return obj.orElseThrow(()-> new ResourceNotFoundException(idUser));
 		
+	}
+	
+	public User insert(User obj) {
+		return userRepository.save(obj);
 	}
 
 }
