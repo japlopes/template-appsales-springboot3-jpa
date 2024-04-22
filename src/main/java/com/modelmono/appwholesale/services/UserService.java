@@ -13,6 +13,8 @@ import com.modelmono.appwholesale.repositories.UserRepository;
 import com.modelmono.appwholesale.services.exceptions.DatabaseException;
 import com.modelmono.appwholesale.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
 	
@@ -44,9 +46,13 @@ public class UserService {
 	}
 	
 	public User update(Long idUser, User obj) {
-		User entity = userRepository.getReferenceById(idUser);
-		updateData(entity, obj);
-		return userRepository.save(entity);
+		try {
+			User entity = userRepository.getReferenceById(idUser);
+			updateData(entity, obj);
+			return userRepository.save(entity);
+		} catch(EntityNotFoundException e){
+			throw new ResourceNotFoundException(idUser);
+		}		
 	}
 
 	private void updateData(User entity, User obj) {
